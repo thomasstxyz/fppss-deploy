@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-datacollector
+  labels:
+    app: fppss-datacollector
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fppss-datacollector
+  template:
+    metadata:
+      labels:
+        app: fppss-datacollector
+    spec:
+      containers:
+      - name: fppss-datacollector
+        image: ghcr.io/2110781006/fppss-datacollector:latest
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-rest-api
+  labels:
+    app: fppss-rest-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fppss-rest-api
+  template:
+    metadata:
+      labels:
+        app: fppss-rest-api
+    spec:
+      containers:
+      - name: fppss-rest-api
+        image: ghcr.io/2110781006/fppss-rest-api:latest
+        ports:
+        - containerPort: 8080
