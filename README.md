@@ -20,13 +20,12 @@ Run minikube tunnel.
 
 ## Apply the manifests on the cluster
 
-Apply the manifests.
+Install the helm chart.
 
-    kubectl apply -f config/kubernetes/manifests
+    helm install fppss-energy config/kubernetes/helm --values config/kubernetes/helm/values.yaml 
 
 ## Clean up
 
-Delete the manifests from the cluster.
+Uninstall the helm chart.
 
-    kubectl delete -f config/kubernetes/manifests
-
+    helm uninstall fppss-energy

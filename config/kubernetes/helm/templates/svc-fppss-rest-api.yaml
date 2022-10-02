@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: fppss-rest-api
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: fppss-rest-api
   ports:
     - protocol: TCP
-      port: 8080
+      port: 81
       targetPort: 8080
