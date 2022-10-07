@@ -4,6 +4,8 @@ resource "aws_vpc" "main" {
 
   tags = {
     Name = "main"
+    app = "fppss-energy"
+    env = "dev"
   }
 }
 
@@ -14,6 +16,8 @@ resource "aws_subnet" "example1" {
 
   tags = {
     Name = "example1"
+    app = "fppss-energy"
+    env = "dev"
   }
 }
 
@@ -24,5 +28,7 @@ resource "aws_subnet" "example2" {
 
   tags = {
     Name = "example2"
+    app = "fppss-energy"
+    env = "dev"
   }
 }

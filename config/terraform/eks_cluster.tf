@@ -12,6 +12,12 @@ resource "aws_eks_cluster" "example" {
     aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
   ]
+
+  tags = {
+    Name = "example"
+    app = "fppss-energy"
+    env = "dev"
+  }
 }
 
 output "endpoint" {
@@ -21,3 +27,17 @@ output "endpoint" {
 output "kubeconfig-certificate-authority-data" {
   value = aws_eks_cluster.example.certificate_authority[0].data
 }
+
+locals {
+  kubeconfig = templatefile("templates/kubeconfig.tftpl", {
+    kubeconfig_name                   = aws_eks_cluster.example.name
+    endpoint                          = aws_eks_cluster.example.endpoint
+    cluster_auth_base64               = aws_eks_cluster.example.certificate_authority[0].data
+    aws_authenticator_command         = "aws-iam-authenticator"
+    aws_authenticator_command_args    = ["token", "-i", aws_eks_cluster.example.name]
+    aws_authenticator_additional_args = []
+    aws_authenticator_env_variables   = {}
+  })
+}
+
+output "kubeconfig" { value = local.kubeconfig }

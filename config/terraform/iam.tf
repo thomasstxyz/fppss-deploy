@@ -16,6 +16,13 @@ resource "aws_iam_role" "example" {
   ]
 }
 POLICY
+
+  tags = {
+    Name = "example"
+    app = "fppss-energy"
+    env = "dev"
+  }
+
 }
 
 resource "aws_iam_role_policy_attachment" "example-AmazonEKSClusterPolicy" {
