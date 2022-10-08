@@ -10,6 +10,7 @@ Infrastructure-as-Code for the "fppss-energy" application.
 <!--ts-->
 - [fppss-deploy](#fppss-deploy)
 - [Table of Contents](#table-of-contents)
+- [Prerequisites](#prerequisites)
 - [Usage](#usage)
   - [Creating a minikube cluster for local development](#creating-a-minikube-cluster-for-local-development)
   - [Creating an EKS cluster for production use](#creating-an-eks-cluster-for-production-use)
@@ -19,6 +20,16 @@ Infrastructure-as-Code for the "fppss-energy" application.
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
 
 <!--te-->
+
+# Prerequisites
+
+Install:
+
+- [Terraform](https://www.terraform.io/downloads)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+- [helm](https://helm.sh/docs/intro/install/)
 
 # Usage
 
@@ -57,14 +68,14 @@ Retrieve the access credentials for your cluster and configure kubectl.
 
 Create an IAM role. Create a Kubernetes service account named aws-load-balancer-controller in the kube-system namespace for the AWS Load Balancer Controller and annotate the Kubernetes service account with the name of the IAM role.
 
-eksctl create iamserviceaccount \
-  --region $(terraform output -raw region) \
-  --cluster=$(terraform output -raw cluster_name) \
-  --namespace=kube-system \
-  --name=aws-load-balancer-controller \
-  --role-name "AmazonEKSLoadBalancerControllerRole" \
-  --attach-policy-arn=arn:aws:iam::$(aws sts get-caller-identity --query "Account" --output text):policy/AWSLoadBalancerControllerIAMPolicy \
-  --approve
+    eksctl create iamserviceaccount \
+        --region $(terraform output -raw region) \
+        --cluster=$(terraform output -raw cluster_name) \
+        --namespace=kube-system \
+        --name=aws-load-balancer-controller \
+        --role-name "AmazonEKSLoadBalancerControllerRole" \
+        --attach-policy-arn=arn:aws:iam::$(aws sts get-caller-identity --query "Account" --output text):policy/AWSLoadBalancerControllerIAMPolicy \
+        --approve
 
 Add the eks-charts repository.
 
@@ -77,11 +88,11 @@ Update your local repo to make sure that you have the most recent charts.
 Install the AWS Load Balancer Controller using Helm V3 or later.
 
     helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
-    -n kube-system \
-    --set clusterName=$(terraform output -raw cluster_name) \
-    --set image.repository=602401143452.dkr.ecr.$(terraform output -raw region).amazonaws.com/amazon/aws-load-balancer-controller \
-    --set serviceAccount.create=false \
-    --set serviceAccount.name=aws-load-balancer-controller 
+        -n kube-system \
+        --set clusterName=$(terraform output -raw cluster_name) \
+        --set image.repository=602401143452.dkr.ecr.$(terraform output -raw region).amazonaws.com/amazon/aws-load-balancer-controller \
+        --set serviceAccount.create=false \
+        --set serviceAccount.name=aws-load-balancer-controller 
 
 > Note: You might have to adapt the image repository url if you face errors.
 
