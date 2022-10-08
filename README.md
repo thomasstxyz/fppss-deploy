@@ -115,3 +115,9 @@ Delete the iamserviceaccount.
 Clean up terraform infra.
 
     terraform destroy -auto-approve
+
+> If following error occurs: `error deleting EC2 VPC (vpc-0248fd59b67d7e24f): DependencyViolation: The vpc 'vpc-0248fd59b67d7e24f' has dependencies and cannot be deleted.`
+> 
+> **Delete the security groups from the AWS console!**
+>
+> This error is caused by SGs created by ALB ingress resources. Deleting them solves the issue.
