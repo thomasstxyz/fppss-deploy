@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-db
+  labels:
+    app: fppss-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fppss-db
+  template:
+    metadata:
+      labels:
+        app: fppss-db
+    spec:
+      containers:
+      - name: fppss-db
+        image: mariadb:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: fppss-db-secret
+              key: user
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fppss-db-secret
+              key: password
+        - name: MARIADB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-db
+              key: mariadb_database
+        - name: MARIADB_RANDOM_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-db
+              key: mariadb_random_root_password

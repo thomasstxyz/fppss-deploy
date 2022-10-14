@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fppss-datacollector
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: fppss-datacollector
@@ -19,3 +19,19 @@ spec:
         image: ghcr.io/2110781006/fppss-datacollector:latest
         ports:
         - containerPort: 8080
+        env:
+        - name: FPPSS_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-datacollector
+              key: fppss_key
+        - name: FPPSS_REST_URL
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-datacollector
+              key: fppss_rest_url
+        - name: FPPSS_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-datacollector
+              key: fppss_interval

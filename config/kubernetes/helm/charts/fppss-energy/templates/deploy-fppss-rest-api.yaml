@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fppss-rest-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: fppss-rest-api
@@ -19,3 +19,24 @@ spec:
         image: ghcr.io/2110781006/fppss-rest-api:latest
         ports:
         - containerPort: 8080
+        env:
+        - name: FPPSS_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-rest-api
+              key: fppss_key
+        - name: FPPSS_DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-rest-api
+              key: fppss_db_url
+        - name: FPPSS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fppss-db-secret
+              key: password
+        - name: FPPSS_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: fppss-db-secret
+              key: user
