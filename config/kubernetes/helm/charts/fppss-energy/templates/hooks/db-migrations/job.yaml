@@ -1,32 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: fppss-rest-api
+  name: fppss-rest-api-migrations
   labels:
-    app: fppss-rest-api
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": hook-succeeded
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: fppss-rest-api
   template:
     metadata:
-      labels:
-        app: fppss-rest-api
+      name: fppss-rest-api-migrations
     spec:
-      initContainers:
-      - name: init-waitfor-job-fppss-rest-api-migrations
-        image: bitnami/kubectl
-        args:
-          - "wait"
-          - "--for=condition=complete"
-          - "--timeout=999s"
-          - "job/fppss-rest-api-migrations"
+      restartPolicy: Never
       containers:
-      - name: fppss-rest-api
-        image: ghcr.io/2110781006/fppss-rest-api:latest
-        ports:
-        - containerPort: 8080
+      - name: fppss-rest-api-migrations
+        image: ghcr.io/2110781006/fppss-rest-api-migrations:latest
         env:
         - name: FPPSS_KEY
           valueFrom:
