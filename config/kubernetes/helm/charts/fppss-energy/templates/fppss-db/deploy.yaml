@@ -23,12 +23,12 @@ spec:
         - name: MARIADB_USER
           valueFrom:
             secretKeyRef:
-              name: fppss-db-secret
+              name: fppss-energy-secret
               key: user
         - name: MARIADB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: fppss-db-secret
+              name: fppss-energy-secret
               key: password
         - name: MARIADB_DATABASE
           valueFrom:
