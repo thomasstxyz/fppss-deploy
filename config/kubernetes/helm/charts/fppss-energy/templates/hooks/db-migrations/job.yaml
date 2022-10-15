@@ -3,6 +3,7 @@ kind: Job
 metadata:
   name: fppss-rest-api-migrations
   labels:
+  namespace: fppss-energy
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "-1"

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fppss-datacollector
+  namespace: fppss-energy
   labels:
     app: fppss-datacollector
 spec:
