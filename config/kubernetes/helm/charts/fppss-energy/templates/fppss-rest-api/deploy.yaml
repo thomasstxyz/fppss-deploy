@@ -42,9 +42,9 @@ spec:
           valueFrom:
             secretKeyRef:
               name: fppss-energy-secret
-              key: password
+              key: fppss_db_password
         - name: FPPSS_DB_USER
           valueFrom:
             secretKeyRef:
               name: fppss-energy-secret
-              key: user
+              key: fppss_db_user

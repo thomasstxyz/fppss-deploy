@@ -100,13 +100,13 @@ Install the AWS Load Balancer Controller using Helm V3 or later.
 ## Create Kubernetes secrets
 
 Create a temporary file `fppss-energy-secret.yaml` in the following format. 
-Set the base64-encoded `fppss_key`, `user` and `password` of the database to the according keys.
+Set the base64-encoded `fppss_key`, `fppss_db_user` and `fppss_db_password` of the database to the according keys.
 
 ```
 apiVersion: v1
 data:
-  password: ZnBwc3M=
-  user: ZnBwc3M=
+  fppss_db_user: ZnBwc3M=
+  fppss_db_password: ZnBwc3M=
   fppss_key: ZnBwc3M=
 kind: Secret
 metadata:

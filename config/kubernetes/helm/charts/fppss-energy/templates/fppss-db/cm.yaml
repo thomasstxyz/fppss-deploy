@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: fppss-db
 data:
-  mariadb_database: fppss-energy
+  fppss_db_name: fppss-energy
   mariadb_random_root_password: "yes"

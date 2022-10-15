@@ -24,17 +24,17 @@ spec:
           valueFrom:
             secretKeyRef:
               name: fppss-energy-secret
-              key: user
+              key: fppss_db_user
         - name: MARIADB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: fppss-energy-secret
-              key: password
+              key: fppss_db_password
         - name: MARIADB_DATABASE
           valueFrom:
             configMapKeyRef:
               name: fppss-db
-              key: mariadb_database
+              key: fppss_db_name
         - name: MARIADB_RANDOM_ROOT_PASSWORD
           valueFrom:
             configMapKeyRef:
