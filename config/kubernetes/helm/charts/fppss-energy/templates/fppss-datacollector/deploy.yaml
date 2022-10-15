@@ -22,8 +22,8 @@ spec:
         env:
         - name: FPPSS_KEY
           valueFrom:
-            configMapKeyRef:
-              name: fppss-datacollector
+            secretKeyRef:
+              name: fppss-energy-secret
               key: fppss_key
         - name: FPPSS_REST_URL
           valueFrom:

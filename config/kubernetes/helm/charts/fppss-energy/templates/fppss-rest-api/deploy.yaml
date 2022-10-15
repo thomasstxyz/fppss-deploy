@@ -30,8 +30,8 @@ spec:
         env:
         - name: FPPSS_KEY
           valueFrom:
-            configMapKeyRef:
-              name: fppss-rest-api
+            secretKeyRef:
+              name: fppss-energy-secret
               key: fppss_key
         - name: FPPSS_DB_URL
           valueFrom:

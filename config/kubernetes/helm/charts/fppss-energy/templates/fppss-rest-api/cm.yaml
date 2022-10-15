@@ -3,5 +3,4 @@ kind: ConfigMap
 metadata:
   name: fppss-rest-api
 data:
-  fppss_key: "fppss"
   fppss_db_url: "jdbc:mysql://fppss-db:3306/fppss-energy"
