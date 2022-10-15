@@ -14,6 +14,7 @@ Infrastructure-as-Code for the "fppss-energy" application.
 - [Usage](#usage)
   - [Creating a minikube cluster for local development](#creating-a-minikube-cluster-for-local-development)
   - [Creating an EKS cluster for production use](#creating-an-eks-cluster-for-production-use)
+  - [Create Kubernetes namespace](#create-kubernetes-namespace)
   - [Create Kubernetes secrets](#create-kubernetes-secrets)
   - [Helm Install on existing cluster](#helm-install-on-existing-cluster)
   - [Uninstall](#uninstall)
@@ -97,6 +98,10 @@ Install the AWS Load Balancer Controller using Helm V3 or later.
 
 > Note: You might have to adapt the image repository url if you face errors.
 
+## Create Kubernetes namespace
+
+    kubectl create namespace fppss-energy
+
 ## Create Kubernetes secrets
 
 Create a temporary file `fppss-energy-secret.yaml` in the following format. 
@@ -111,6 +116,7 @@ data:
 kind: Secret
 metadata:
   name: fppss-energy-secret
+  namespace: fppss-energy
 type: Opaque
 ```
 
