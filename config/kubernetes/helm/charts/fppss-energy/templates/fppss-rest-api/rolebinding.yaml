@@ -2,11 +2,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: read-pods
-  namespace: fppss-energy
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: fppss-energy
 roleRef:
   kind: Role
   name: pod-reader
