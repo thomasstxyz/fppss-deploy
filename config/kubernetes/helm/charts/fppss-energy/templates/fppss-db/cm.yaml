@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fppss-db
-data:
-  fppss_db_name: fppss-energy
-  mariadb_random_root_password: "yes"
