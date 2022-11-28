@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fppss-datacollector
-data:
-  fppss_rest_url: "http://fppss-rest-api:80"
-  fppss_interval: "300"
