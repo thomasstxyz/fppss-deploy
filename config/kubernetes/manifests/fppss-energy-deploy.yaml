@@ -21,8 +21,8 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: fppss-db
-        image: docker.io/mariadb:10.6
-        imagePullPolicy: Always
+        image: mariadb:10.6
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3306
         env:
@@ -189,6 +189,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: fppss-rest-api
+  namespace: fppss-energy
 spec:
   rules:
   - http:
@@ -258,3 +259,88 @@ spec:
           requests:
             cpu: 1000m
             memory: 1024Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-frontend
+  namespace: fppss-energy
+  labels:
+    app: fppss-energy
+spec:
+  selector:
+    matchLabels:
+      component: fppss-frontend
+  template:
+    metadata:
+      labels:
+        component: fppss-frontend
+        app.kubernetes.io/part-of: fppss-energy
+        app.kubernetes.io/name: fppss-frontend
+        app.kubernetes.io/version: "latest"
+    spec:
+      terminationGracePeriodSeconds: 5
+      initContainers:
+      - name: wait-for-rest-api
+        image: ghcr.io/patrickdappollonio/wait-for:v1.0.0
+        env:
+        - name: REST_API_URL
+          value: "fppss-rest-api:80"
+        command:
+          - /wait-for
+        args:
+          - --host="google.com:443"
+          - --host="$(REST_API_URL)"
+          - --timeout=300s
+          - --verbose
+
+      containers:
+      - name: fppss-frontend
+        image: ghcr.io/2110781006/fppss-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: FPPSS_PLACEHOLDER
+          value: "https://placeholder"
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 1024Mi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fppss-frontend
+  namespace: fppss-energy
+  labels:
+    app: fppss-energy
+spec:
+  selector:
+    component: fppss-frontend
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fppss-frontend
+  namespace: fppss-energy
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fppss-frontend
+            port:
+              number: 80
