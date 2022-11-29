@@ -7,4 +7,4 @@ resources:
 - base/fppss-energy-deploy.yaml
 
 patchesStrategicMerge:
-- ingress/patch.json
+- ingress/patch.yaml
