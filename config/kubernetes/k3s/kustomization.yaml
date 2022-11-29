@@ -1,0 +1,14 @@
+bases:
+- ../base
+# namePrefix: k3s-
+
+namespace: fppss-energy
+
+patchesStrategicMerge:
+- traefik-ingress.yaml
+
+patches:
+- target:
+    kind: Ingress
+    name: fppss-energy
+  path: ingress-host-patch.json  
