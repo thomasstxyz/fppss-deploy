@@ -10,11 +10,11 @@ Infrastructure-as-Code for the "fppss-energy" application.
 <!--ts-->
 - [fppss-deploy](#fppss-deploy)
 - [Table of Contents](#table-of-contents)
-- [Prerequisites](#prerequisites)
 - [Usage](#usage)
   - [Create a kubernetes cluster](#create-a-kubernetes-cluster)
     - [Creating a minikube cluster for local development](#creating-a-minikube-cluster-for-local-development)
     - [Creating an EKS cluster for production use](#creating-an-eks-cluster-for-production-use)
+      - [Prerequisites](#prerequisites)
   - [Create Kubernetes namespace](#create-kubernetes-namespace)
   - [Create Kubernetes secrets](#create-kubernetes-secrets)
   - [Install via Kustomize](#install-via-kustomize)
@@ -24,22 +24,12 @@ Infrastructure-as-Code for the "fppss-energy" application.
 
 <!--te-->
 
-# Prerequisites
-
-Install:
-
-- [Terraform](https://www.terraform.io/downloads)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-- [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
-- [helm](https://helm.sh/docs/intro/install/)
-
 # Usage
 
-The terraform plan is meant to be applied on AWS to create an EKS cluster.
-Once the cluster is provisioned, the "fppss-energy" application is installed via helm.
+The terraform plan provisions an EKS cluster on AWS.
+Once the cluster is provisioned, the "fppss-energy" application can be installed via Kustomize.
 
-> Alternatively, the application may be installed on a minikube cluster for local development.
+> Alternatively, the application may be installed on a minikube or K3s cluster for local development.
 
 ## Create a kubernetes cluster
 
@@ -58,6 +48,16 @@ Run minikube tunnel.
 > NOTE: You will need to enter a password, when Kubernetes creates the LoadBalancer route (after applying manifests).
 
 ### Creating an EKS cluster for production use
+
+#### Prerequisites
+
+Install:
+
+- [Terraform](https://www.terraform.io/downloads)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+
 
 Change to terraform directory.
 
