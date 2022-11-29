@@ -185,23 +185,6 @@ spec:
     targetPort: 8080
   type: ClusterIP
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: fppss-rest-api
-  namespace: fppss-energy
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /api/v1
-        pathType: Prefix
-        backend:
-          service:
-            name: fppss-rest-api
-            port:
-              number: 80
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -331,7 +314,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fppss-frontend
+  name: fppss-energy-ingress
   namespace: fppss-energy
 spec:
   rules:
@@ -342,5 +325,12 @@ spec:
         backend:
           service:
             name: fppss-frontend
+            port:
+              number: 80
+      - path: /api/v1
+        pathType: Prefix
+        backend:
+          service:
+            name: fppss-rest-api
             port:
               number: 80
