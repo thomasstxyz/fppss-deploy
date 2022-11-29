@@ -4,4 +4,7 @@ kind: Kustomization
 namespace: fppss-energy
 
 resources:
-- fppss-energy-deploy.yaml
+- base/fppss-energy-deploy.yaml
+
+patchesStrategicMerge:
+- ingress/patch.json
