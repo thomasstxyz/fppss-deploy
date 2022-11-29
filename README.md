@@ -12,11 +12,12 @@ Infrastructure-as-Code for the "fppss-energy" application.
 - [Table of Contents](#table-of-contents)
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
-  - [Creating a minikube cluster for local development](#creating-a-minikube-cluster-for-local-development)
-  - [Creating an EKS cluster for production use](#creating-an-eks-cluster-for-production-use)
+  - [Create a kubernetes cluster](#create-a-kubernetes-cluster)
+    - [Creating a minikube cluster for local development](#creating-a-minikube-cluster-for-local-development)
+    - [Creating an EKS cluster for production use](#creating-an-eks-cluster-for-production-use)
   - [Create Kubernetes namespace](#create-kubernetes-namespace)
   - [Create Kubernetes secrets](#create-kubernetes-secrets)
-  - [Helm Install on existing cluster](#helm-install-on-existing-cluster)
+  - [Install via Kustomize](#install-via-kustomize)
   - [Uninstall](#uninstall)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
@@ -40,7 +41,9 @@ Once the cluster is provisioned, the "fppss-energy" application is installed via
 
 > Alternatively, the application may be installed on a minikube cluster for local development.
 
-## Creating a minikube cluster for local development
+## Create a kubernetes cluster
+
+### Creating a minikube cluster for local development
 
 Install [minikube](https://minikube.sigs.k8s.io/docs/start/) on your machine.
 
@@ -54,7 +57,7 @@ Run minikube tunnel.
 
 > NOTE: You will need to enter a password, when Kubernetes creates the LoadBalancer route (after applying manifests).
 
-## Creating an EKS cluster for production use
+### Creating an EKS cluster for production use
 
 Change to terraform directory.
 
@@ -128,18 +131,19 @@ Save, the file and apply it via kubectl.
 You may delete the file now from your machine.
 The secret is now stored in Kubernetes secret store.
 
-## Helm Install on existing cluster
+## Install via Kustomize
 
-Install the helm chart.
+Choose an appropriate kustomize overlay config (K3s/EKS)
 
-    cd config/kubernetes/helm/charts/fppss-energy
-    helm install fppss-energy .
+    kubectl apply -k config/kubernetes/k3s
+
+> Install on a K3s cluster.
 
 ## Uninstall
 
-Uninstall the helm chart.
+Delete the kubernetes manifests.
 
-    helm uninstall fppss-energy
+    kubectl delete -k config/kubernetes/k3s
 
 Delete the iamserviceaccount.
 
