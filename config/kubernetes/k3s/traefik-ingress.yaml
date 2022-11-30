@@ -1,7 +1,27 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fppss-energy
+  name: fppss-rest-api
+  namespace: fppss-energy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+    # traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fppss-frontend
+  namespace: fppss-energy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+    # traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fppss-sso
   namespace: fppss-energy
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod

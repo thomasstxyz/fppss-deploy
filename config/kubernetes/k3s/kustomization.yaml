@@ -10,5 +10,9 @@ patchesStrategicMerge:
 patches:
 - target:
     kind: Ingress
-    name: fppss-energy
+    name: fppss-rest-api
+  path: ingress-host-patch.json  
+- target:
+    kind: Ingress
+    name: fppss-frontend
   path: ingress-host-patch.json  
