@@ -17,8 +17,11 @@ Infrastructure-as-Code for the "fppss-energy" application.
       - [Prerequisites](#prerequisites)
   - [Create Kubernetes namespace](#create-kubernetes-namespace)
   - [Create Kubernetes secrets](#create-kubernetes-secrets)
-  - [Install via Kustomize](#install-via-kustomize)
+  - [Prerequsites](#prerequsites)
+  - [Bootstrap Flux](#bootstrap-flux)
   - [Uninstall](#uninstall)
+    - [Kubernetes resources](#kubernetes-resources)
+    - [AWS resources](#aws-resources)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
 
@@ -135,19 +138,30 @@ Save, the file and apply it via kubectl.
 You may delete the file now from your machine.
 The secret is now stored in Kubernetes secret store.
 
-## Install via Kustomize
+## Prerequsites
 
-Choose an appropriate kustomize overlay config
+- Install [Flux CLI](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
-    kubectl apply -k config/kubernetes/prod
+## Bootstrap Flux
 
-> Install on a K3s cluster.
+```
+flux bootstrap git \
+  --url=ssh://git@github.com/thomasstxyz/fppss-deploy \
+  --branch=main \
+  --path=config/kubernetes
+```
+
+<!-- ## Install via Kustomize
+
+    kubectl apply -k config/kubernetes/base -->
 
 ## Uninstall
 
-Delete the kubernetes manifests.
+### Kubernetes resources
 
-    kubectl delete -k config/kubernetes/k3s
+Delete the kubernetes manifests via Flux.
+
+### AWS resources
 
 Delete the iamserviceaccount.
 
