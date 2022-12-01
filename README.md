@@ -137,9 +137,9 @@ The secret is now stored in Kubernetes secret store.
 
 ## Install via Kustomize
 
-Choose an appropriate kustomize overlay config (K3s/EKS)
+Choose an appropriate kustomize overlay config
 
-    kubectl apply -k config/kubernetes/k3s
+    kubectl apply -k config/kubernetes/prod
 
 > Install on a K3s cluster.
 
