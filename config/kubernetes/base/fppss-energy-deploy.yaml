@@ -65,14 +65,6 @@ spec:
         volumeMounts:
           - mountPath: "/var/lib/mysql"
             name: fppss-db
-
-        resources:
-          limits:
-            cpu: 100m
-            memory: 128Mi
-          requests:
-            cpu: 100m
-            memory: 64Mi
 ---
 apiVersion: v1
 kind: Service
@@ -182,14 +174,6 @@ spec:
             secretKeyRef:
               name: fppss-energy-secret
               key: fppss_db_password
-
-        resources:
-          limits:
-            cpu: 100m
-            memory: 256Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
 ---
 apiVersion: v1
 kind: Service
@@ -258,13 +242,6 @@ spec:
           value: "http://fppss-rest-api:80"
         - name: FPPSS_INTERVAL
           value: "300"
-        resources:
-          limits:
-            cpu: 200m
-            memory: 256Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -309,13 +286,6 @@ spec:
         env:
         - name: FPPSS_PLACEHOLDER
           value: "https://placeholder"
-        resources:
-          limits:
-            cpu: 200m
-            memory: 512Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
 ---
 apiVersion: v1
 kind: Service
@@ -394,14 +364,6 @@ spec:
         volumeMounts:
           - mountPath: "/opt/jboss/keycloak/standalone/data"
             name: fppss-sso
-
-        resources:
-          limits:
-            cpu: 150m
-            memory: 256Mi
-          requests:
-            cpu: 150m
-            memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
