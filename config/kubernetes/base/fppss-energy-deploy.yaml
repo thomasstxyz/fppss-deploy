@@ -72,7 +72,7 @@ spec:
             memory: 128Mi
           requests:
             cpu: 100m
-            memory: 128Mi
+            memory: 64Mi
 ---
 apiVersion: v1
 kind: Service
@@ -134,7 +134,7 @@ spec:
         args:
           - --host="google.com:443"
           - --host="$(DB_HOST)"
-          - --timeout=300s
+          - --timeout=1200s
           - --verbose
 
       - name: migrate-db
@@ -185,10 +185,10 @@ spec:
 
         resources:
           limits:
-            cpu: 400m
-            memory: 512Mi
+            cpu: 100m
+            memory: 256Mi
           requests:
-            cpu: 200m
+            cpu: 100m
             memory: 128Mi
 ---
 apiVersion: v1
@@ -239,7 +239,7 @@ spec:
         args:
           - --host="google.com:443"
           - --host="$(REST_API_URL)"
-          - --timeout=300s
+          - --timeout=1200s
           - --verbose
 
       containers:
@@ -297,7 +297,7 @@ spec:
         args:
           - --host="google.com:443"
           - --host="$(REST_API_URL)"
-          - --timeout=300s
+          - --timeout=1200s
           - --verbose
 
       containers:
@@ -397,11 +397,11 @@ spec:
 
         resources:
           limits:
-            cpu: 1000m
-            memory: 650Mi
+            cpu: 150m
+            memory: 256Mi
           requests:
-            cpu: 400m
-            memory: 512Mi
+            cpu: 150m
+            memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
