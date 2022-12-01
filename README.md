@@ -17,7 +17,6 @@ Infrastructure-as-Code for the "fppss-energy" application.
       - [Prerequisites](#prerequisites)
   - [Create Kubernetes namespace](#create-kubernetes-namespace)
   - [Create Kubernetes secrets](#create-kubernetes-secrets)
-  - [Prerequsites](#prerequsites)
   - [Bootstrap Flux](#bootstrap-flux)
   - [Uninstall](#uninstall)
     - [Kubernetes resources](#kubernetes-resources)
@@ -138,11 +137,11 @@ Save, the file and apply it via kubectl.
 You may delete the file now from your machine.
 The secret is now stored in Kubernetes secret store.
 
-## Prerequsites
-
-- Install [Flux CLI](https://fluxcd.io/flux/installation/#install-the-flux-cli)
-
 ## Bootstrap Flux
+
+Install [Flux CLI](https://fluxcd.io/flux/installation/#install-the-flux-cli) first.
+
+Then bootstrap flux via the cli.
 
 ```
 flux bootstrap git \
