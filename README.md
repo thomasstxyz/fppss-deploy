@@ -141,13 +141,18 @@ The secret is now stored in Kubernetes secret store.
 
 Install [Flux CLI](https://fluxcd.io/flux/installation/#install-the-flux-cli) first.
 
+Export your GitHub personal access token as an environment variable:
+
+    export GITHUB_TOKEN=<your-token>
+
 Then bootstrap flux via the cli.
 
 ```
-flux bootstrap git \
-  --url=ssh://git@github.com/thomasstxyz/fppss-deploy \
-  --branch=main \
-  --path=config/kubernetes
+flux bootstrap github \
+  --owner=thomasstxyz \
+  --repository=fppss-deploy \
+  --path=config/kubernetes \
+  --personal
 ```
 
 <!-- ## Install via Kustomize
