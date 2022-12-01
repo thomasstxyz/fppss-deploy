@@ -65,6 +65,8 @@ spec:
         volumeMounts:
           - mountPath: "/var/lib/mysql"
             name: fppss-db
+
+        resources: {}
 ---
 apiVersion: v1
 kind: Service
@@ -174,6 +176,8 @@ spec:
             secretKeyRef:
               name: fppss-energy-secret
               key: fppss_db_password
+
+        resources: {}
 ---
 apiVersion: v1
 kind: Service
@@ -242,6 +246,8 @@ spec:
           value: "http://fppss-rest-api:80"
         - name: FPPSS_INTERVAL
           value: "300"
+
+        resources: {}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -286,6 +292,8 @@ spec:
         env:
         - name: FPPSS_PLACEHOLDER
           value: "https://placeholder"
+
+        resources: {}
 ---
 apiVersion: v1
 kind: Service
@@ -364,6 +372,8 @@ spec:
         volumeMounts:
           - mountPath: "/opt/jboss/keycloak/standalone/data"
             name: fppss-sso
+
+        resources: {}
 ---
 apiVersion: v1
 kind: Service
@@ -385,11 +395,16 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fppss-frontend
+  name: fppss-demo
   namespace: fppss-energy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
 spec:
   rules:
-  - http:
+  - host: fppss-demo.thomasst.xyz
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -398,16 +413,6 @@ spec:
             name: fppss-frontend
             port:
               number: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: fppss-rest-api
-  namespace: fppss-energy
-spec:
-  rules:
-  - http:
-      paths:
       - path: /api/v1
         pathType: Prefix
         backend:
@@ -415,15 +420,24 @@ spec:
             name: fppss-rest-api
             port:
               number: 80
+  tls:
+  - hosts:
+    - fppss-demo.thomasst.xyz
+    secretName: fppss-demo-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fppss-sso
+  name: fppss-demo-sso
   namespace: fppss-energy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
 spec:
   rules:
-  - http:
+  - host: fppss-demo-sso.thomasst.xyz
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -432,3 +446,7 @@ spec:
             name: fppss-sso
             port:
               number: 80
+  tls:
+  - hosts:
+    - fppss-demo-sso.thomasst.xyz
+    secretName: fppss-demo-sso-tls
