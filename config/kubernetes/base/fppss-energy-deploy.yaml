@@ -389,7 +389,7 @@ spec:
         - name: PROXY_ADDRESS_FORWARDING
           value: "true"
         # - name: KEYCLOAK_FRONTEND_URL
-        #   value: "https://sso.home.thomasst.xyz"
+        #   value: "https://example.com"
 
         volumeMounts:
           - mountPath: "/opt/jboss/keycloak/standalone/data"
@@ -398,7 +398,7 @@ spec:
         resources:
           limits:
             cpu: 1000m
-            memory: 1500Mi
+            memory: 650Mi
           requests:
             cpu: 400m
             memory: 512Mi
@@ -461,8 +461,7 @@ metadata:
   namespace: fppss-energy
 spec:
   rules:
-  - host: sso.home.thomasst.xyz
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix

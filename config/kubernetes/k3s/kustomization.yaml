@@ -4,15 +4,30 @@ bases:
 
 namespace: fppss-energy
 
-patchesStrategicMerge:
-- traefik-ingress.yaml
-
 patches:
+- path: traefik-ingress.yaml
+  target:
+    kind: Ingress
+    name: fppss.*
+
 - target:
     kind: Ingress
     name: fppss-rest-api
-  path: ingress-host-patch.json  
+  patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: fppss-demo.thomasst.xyz
 - target:
     kind: Ingress
     name: fppss-frontend
-  path: ingress-host-patch.json  
+  patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: fppss-demo.thomasst.xyz
+- target:
+    kind: Ingress
+    name: fppss-sso
+  patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: fppss-demo-sso.thomasst.xyz
