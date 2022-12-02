@@ -149,6 +149,7 @@ Then bootstrap flux via the cli.
 
 ```
 flux bootstrap github \
+  --components-extra=image-reflector-controller,image-automation-controller \
   --owner=thomasstxyz \
   --repository=fppss-deploy \
   --path=config/kubernetes \
