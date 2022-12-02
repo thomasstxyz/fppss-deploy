@@ -183,7 +183,10 @@ spec:
         - name: FPPSS_KEYCLOAK_RESOURCE
           value: "fppss-demo"
         - name: FPPSS_KEYCLOAK_CREDENTIALS_SECRET
-          value: "fppss-demo-secret"
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: fppss_sso_client_secret
         - name: FPPSS_KEYCLOAK_TRUSTSTORE
           value: ""
         - name: FPPSS_KEYCLOAK_TRUSTSTORE_PASSWORD
