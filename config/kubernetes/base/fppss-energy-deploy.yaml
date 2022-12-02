@@ -181,11 +181,15 @@ spec:
         - name: FPPSS_KEYCLOAK_REALM
           value: "fppss"
         - name: FPPSS_KEYCLOAK_RESOURCE
-          value: "fppss-login"
+          value: "fppss-demo"
+        - name: FPPSS_KEYCLOAK_CREDENTIALS_SECRET
+          value: "fppss-demo-secret"
         - name: FPPSS_KEYCLOAK_TRUSTSTORE
           value: ""
         - name: FPPSS_KEYCLOAK_TRUSTSTORE_PASSWORD
           value: ""
+        - name: FPPSS_API_SERVER_SSL_ENABLED
+          value: "false"
 
         resources: {}
 ---
