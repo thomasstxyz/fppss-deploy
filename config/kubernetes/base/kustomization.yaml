@@ -5,4 +5,3 @@ namespace: fppss-energy
 
 resources:
 - fppss-energy-deploy.yaml
-- traefik-http-redirect-middleware.yaml
