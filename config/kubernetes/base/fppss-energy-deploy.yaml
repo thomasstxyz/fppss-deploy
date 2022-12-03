@@ -191,6 +191,10 @@ spec:
           value: "/usr/local/openjdk-11/lib/security/cacerts"
         - name: FPPSS_KEYCLOAK_TRUSTSTORE_PASSWORD
           value: ""
+        - name: _JAVA_OPTIONS
+          value: >
+            -Djavax.net.ssl.trustStore=/usr/local/openjdk-11/lib/security/cacerts
+            -Djavax.net.ssl.trustStorePassword=password
         - name: FPPSS_API_SERVER_SSL_ENABLED
           value: "false"
 
