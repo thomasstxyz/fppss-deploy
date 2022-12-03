@@ -262,7 +262,15 @@ spec:
         - name: FPPSS_REST_URL
           value: "http://fppss-rest-api:80"
         - name: FPPSS_INTERVAL
-          value: "300"
+          value: "65"
+        - name: FPPSS_KEYCLOAK_CLIENT_ID
+          value: "fppss-demo"
+        - name: FPPSS_KEYCLOAK_USER
+          value: "fppss"
+        - name: FPPSS_KEYCLOAK_PASSWORD
+          value: "fppss"
+        - name: FPPSS_KEYCLOAK_TOKEN_URL
+          value: "https://fppss-demo-sso.thomasst.xyz/auth/realms/fppss-demo/protocol/openid-connect/token"
 
         resources: {}
 ---
