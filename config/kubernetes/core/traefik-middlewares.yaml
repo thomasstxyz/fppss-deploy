@@ -7,18 +7,27 @@ spec:
   redirectScheme:
     scheme: https
     permanent: true
-# ---
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: Middleware
-# metadata:
-#   name: cors-allow-origin
-#   namespace: default
-# spec:
-#   headers:
-#     accessControlAllowMethods:
-#       - "GET"
-#       - "OPTIONS"
-#       - "PUT"
-#     accessControlAllowOrigin: "*"
-#     accessControlMaxAge: 100
-#     addVaryHeader: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: cors-allow-origin
+  namespace: default
+spec:
+  headers:
+    accessControlAllowMethods:
+      - "GET"
+      - "PUT"
+      - "DELETE"
+      - "POST"
+    accessControlAllowHeaders:
+      - "X-Requested-With"
+      - "Content-Type"
+      - "Authorization"
+      - "Origin"
+      - "Accept"
+      - "Access-Control-Request-Method"
+      - "Access-Control-Request-Headers"
+    accessControlAllowOrigin: "*"
+    accessControlMaxAge: 0
+    addVaryHeader: true
