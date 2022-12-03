@@ -18,6 +18,7 @@ spec:
     accessControlAllowOriginList:
       - "https://fppss-demo-sso.thomasst.xyz"
       - "https://fppss-demo.thomasst.xyz"
+    accessControlAllowCredentials: true
     accessControlAllowMethods:
       - "GET"
       - "PUT"
