@@ -179,7 +179,7 @@ spec:
         - name: FPPSS_KEYCLOAK_AUTH_SERVER_URL
           value: "https://fppss-demo-sso.thomasst.xyz/auth"
         - name: FPPSS_KEYCLOAK_REALM
-          value: "fppss"
+          value: "fppss-demo"
         - name: FPPSS_KEYCLOAK_RESOURCE
           value: "fppss-demo"
         - name: FPPSS_KEYCLOAK_CREDENTIALS_SECRET
