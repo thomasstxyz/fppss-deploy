@@ -177,7 +177,7 @@ spec:
               name: fppss-energy-secret
               key: fppss_db_password
         - name: FPPSS_KEYCLOAK_AUTH_SERVER_URL
-          value: "https://fppss-demo-sso.thomasst.xyz"
+          value: "https://fppss-demo-sso.thomasst.xyz/auth"
         - name: FPPSS_KEYCLOAK_REALM
           value: "fppss"
         - name: FPPSS_KEYCLOAK_RESOURCE
