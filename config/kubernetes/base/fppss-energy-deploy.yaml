@@ -260,9 +260,9 @@ spec:
               name: fppss-energy-secret
               key: fppss_key
         - name: FPPSS_REST_URL
-          value: "http://fppss-rest-api:80"
+          value: "https://fppss-demo.thomasst.xyz"
         - name: FPPSS_INTERVAL
-          value: "65"
+          value: "50"
         - name: FPPSS_KEYCLOAK_CLIENT_ID
           value: "fppss-demo"
         - name: FPPSS_KEYCLOAK_USER
