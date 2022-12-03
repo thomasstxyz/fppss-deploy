@@ -456,7 +456,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd,default-cors-allow-origin@kubernetescrd
 spec:
   rules:
   - host: fppss-demo-sso.thomasst.xyz

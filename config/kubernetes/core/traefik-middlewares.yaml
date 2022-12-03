@@ -17,6 +17,7 @@ spec:
   headers:
     accessControlAllowOriginList:
       - "https://fppss-demo-sso.thomasst.xyz"
+      - "https://fppss-demo.thomasst.xyz"
     accessControlAllowMethods:
       - "GET"
       - "PUT"
