@@ -424,6 +424,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd
+    traefik.ingress.kubernetes.io/custom-response-headers: "Access-Control-Allow-Origin:*||Access-Control-Allow-Methods:*||Access-Control-Allow-Headers:*||Access-Control-Expose-Headers:Content-Length,Content-Range"
 spec:
   rules:
   - host: fppss-demo.thomasst.xyz

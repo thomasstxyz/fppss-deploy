@@ -1,0 +1,24 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: http-redirect
+  namespace: default
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: cors-allow-origin
+#   namespace: default
+# spec:
+#   headers:
+#     accessControlAllowMethods:
+#       - "GET"
+#       - "OPTIONS"
+#       - "PUT"
+#     accessControlAllowOrigin: "*"
+#     accessControlMaxAge: 100
+#     addVaryHeader: true
