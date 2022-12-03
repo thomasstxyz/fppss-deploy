@@ -307,8 +307,14 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: FPPSS_PLACEHOLDER
-          value: "https://placeholder"
+        - name: FPPSS_REST_URL
+          value: "https://fppss-demo.thomasst.xyz/api/v1/"
+        - name: FPPSS_KEYCLOAK_URL
+          value: "https://fppss-demo-sso.thomasst.xyz/"
+        - name: FPPSS_KEYCLOAK_REALM
+          value: "fppss-demo"
+        - name: FPPSS_KEYCLOAK_CLIENT_ID
+          value: "fppss-demo"
 
         resources: {}
 ---
