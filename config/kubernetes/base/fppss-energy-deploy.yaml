@@ -30,8 +30,6 @@ spec:
         app.kubernetes.io/name: fppss-db
         app.kubernetes.io/version: "10.6"
     spec:
-      terminationGracePeriodSeconds: 5
-
       volumes:
         - name: fppss-db
           persistentVolumeClaim:
@@ -104,8 +102,6 @@ spec:
         app.kubernetes.io/name: fppss-rest-api
         app.kubernetes.io/version: "latest"
     spec:
-      terminationGracePeriodSeconds: 5
-
       volumes:
       - name: sql-files
         emptyDir: {}
@@ -182,19 +178,6 @@ spec:
           value: "fppss-demo"
         - name: FPPSS_KEYCLOAK_RESOURCE
           value: "fppss-demo"
-        - name: FPPSS_KEYCLOAK_CREDENTIALS_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: fppss-energy-secret
-              key: fppss_sso_client_secret
-        - name: FPPSS_KEYCLOAK_TRUSTSTORE
-          value: "/usr/local/openjdk-11/lib/security/cacerts"
-        - name: FPPSS_KEYCLOAK_TRUSTSTORE_PASSWORD
-          value: ""
-        # - name: _JAVA_OPTIONS
-        #   value: >
-        #     -Djavax.net.ssl.trustStore=/usr/local/openjdk-11/lib/security/cacerts
-        #     -Djavax.net.ssl.trustStorePassword=password
         - name: FPPSS_API_SERVER_SSL_ENABLED
           value: "false"
 
@@ -236,7 +219,6 @@ spec:
         app.kubernetes.io/name: fppss-datacollector
         app.kubernetes.io/version: "latest"
     spec:
-      terminationGracePeriodSeconds: 5
       initContainers:
       - name: wait-for-rest-api
         image: ghcr.io/patrickdappollonio/wait-for:v1.0.0
@@ -297,7 +279,6 @@ spec:
         app.kubernetes.io/name: fppss-frontend
         app.kubernetes.io/version: "latest"
     spec:
-      terminationGracePeriodSeconds: 5
       initContainers:
       - name: wait-for-rest-api
         image: ghcr.io/patrickdappollonio/wait-for:v1.0.0
@@ -401,8 +382,6 @@ spec:
               key: keycloak_password
         - name: PROXY_ADDRESS_FORWARDING
           value: "true"
-        # - name: KEYCLOAK_FRONTEND_URL
-        #   value: "https://example.com"
 
         volumeMounts:
           - mountPath: "/opt/jboss/keycloak/standalone/data"
