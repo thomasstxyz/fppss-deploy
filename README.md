@@ -1,8 +1,8 @@
 # fppss-deploy
 
-[![Build Status](https://github.com/thomasstxyz/fppss-deploy/workflows/CI/badge.svg?event=push)](https://github.com/thomasstxyz/fppss-deploy/actions)
+GitOps Repo of the "fppss-energy" application.
 
-Infrastructure-as-Code for the "fppss-energy" application.
+![Illustration](./assets/architecture.png)
 
 # Table of Contents
 <!-- Regenerate this table of contents using https://github.com/ekalinin/github-markdown-toc -->
