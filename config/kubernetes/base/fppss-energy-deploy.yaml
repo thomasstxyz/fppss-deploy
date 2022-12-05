@@ -274,7 +274,13 @@ spec:
               name: fppss-demo
               key: fppss_keycloak_token_url
 
-        resources: {}
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+          requests:
+            memory: "64Mi"
+            cpu: "40m"
 ---
 apiVersion: apps/v1
 kind: Deployment
