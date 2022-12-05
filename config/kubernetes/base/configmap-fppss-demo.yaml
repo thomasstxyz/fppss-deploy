@@ -8,7 +8,7 @@ data:
   fppss_keycloak_token_url: "https://fppss-demo-sso.thomasst.xyz/auth/realms/fppss-demo/protocol/openid-connect/token"
   fppss_keycloak_realm: "fppss-demo"
   fppss_keycloak_resource: "fppss-demo"
-  fppss_interval: "300"
+  fppss_interval: "3600"
 
   fppss-realm.json: |
     {
