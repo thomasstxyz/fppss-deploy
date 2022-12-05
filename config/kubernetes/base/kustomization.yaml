@@ -6,3 +6,4 @@ namespace: fppss-energy
 resources:
 - configmap-fppss-demo.yaml
 - fppss-energy-deploy.yaml
+- deployrestart-cronjob.yaml
