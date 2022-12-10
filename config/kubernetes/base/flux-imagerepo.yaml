@@ -1,0 +1,10 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: fppss-rest-api
+  namespace: flux-system
+spec:
+  image: ghcr.io/2110781006/fppss-rest-api
+  interval: 6m0s
+
