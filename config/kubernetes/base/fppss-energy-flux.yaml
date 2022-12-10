@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/2110781006/fppss-rest-api
-  interval: 6m0s
+  interval: 1m0s
 
