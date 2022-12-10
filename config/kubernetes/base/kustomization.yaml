@@ -7,3 +7,4 @@ resources:
 - configmap-fppss-demo.yaml
 - fppss-energy-deploy.yaml
 - deployrestart-cronjob.yaml
+- fppss-energy-flux.yaml
