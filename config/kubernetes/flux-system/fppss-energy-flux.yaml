@@ -7,4 +7,15 @@ metadata:
 spec:
   image: ghcr.io/2110781006/fppss-rest-api
   interval: 1m0s
-
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: fppss-rest-api
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: fppss-rest-api
+  policy:
+    semver:
+      range: '>=0.0.0 <1.0.0'
