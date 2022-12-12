@@ -231,7 +231,7 @@ spec:
         - --verbose
       containers:
       - name: fppss-datacollector
-        image: ghcr.io/2110781006/fppss-datacollector:latest
+        image: ghcr.io/2110781006/fppss-datacollector:0.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -304,7 +304,7 @@ spec:
         - --verbose
       containers:
       - name: fppss-frontend
-        image: ghcr.io/2110781006/fppss-frontend:latest
+        image: ghcr.io/2110781006/fppss-frontend:0.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 80
