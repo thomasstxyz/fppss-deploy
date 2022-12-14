@@ -144,7 +144,8 @@ spec:
         image: ghcr.io/2110781006/fppss-rest-api:0.1.0 # {"$imagepolicy": "flux-system:fppss-rest-api"}
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - name: web
+          containerPort: 8080
         env:
         - name: FPPSS_KEY
           valueFrom:
@@ -179,6 +180,23 @@ spec:
               name: fppss-demo
               key: fppss_keycloak_resource
         resources: {}
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: web
+          periodSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: web
+          periodSeconds: 10
+          failureThreshold: 1
+        startupProbe:
+          httpGet:
+            path: /healthcheck
+            port: web
+          failureThreshold: 30
+          periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
