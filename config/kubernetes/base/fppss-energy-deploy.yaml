@@ -182,18 +182,18 @@ spec:
         resources: {}
         readinessProbe:
           httpGet:
-            path: /healthcheck
+            path: /api/v1/healthcheck
             port: web
           periodSeconds: 2
         livenessProbe:
           httpGet:
-            path: /healthcheck
+            path: /api/v1/healthcheck
             port: web
           periodSeconds: 10
           failureThreshold: 1
         startupProbe:
           httpGet:
-            path: /healthcheck
+            path: /api/v1/healthcheck
             port: web
           failureThreshold: 30
           periodSeconds: 10
