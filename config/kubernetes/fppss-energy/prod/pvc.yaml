@@ -3,6 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: fppss-db
+  namespace: fppss-energy
 spec:
   storageClassName: local-path
 ---
@@ -10,5 +11,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: fppss-sso
+  namespace: fppss-energy
 spec:
   storageClassName: local-path
