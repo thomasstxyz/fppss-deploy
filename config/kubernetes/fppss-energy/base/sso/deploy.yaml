@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-sso
+  namespace: fppss-energy
+  labels:
+    app: fppss-energy
+spec:
+  selector:
+    matchLabels:
+      component: fppss-sso
+  template:
+    metadata:
+      labels:
+        component: fppss-sso
+        app.kubernetes.io/part-of: fppss-energy
+        app.kubernetes.io/name: fppss-sso
+        app.kubernetes.io/version: "latest"
+    spec:
+      containers:
+      - name: fppss-sso
+        image: docker.io/jboss/keycloak:16.1.1
+        imagePullPolicy: IfNotPresent
+        resources: {}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: KEYCLOAK_USER
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: keycloak_user
+        - name: KEYCLOAK_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: keycloak_password
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        - name: KEYCLOAK_IMPORT
+          value: "/tmp/fppss-realm.json"
+        volumeMounts:
+        - name: realm-config
+          mountPath: "/tmp/fppss-realm.json"
+          subPath: "fppss-realm.json"
+          readOnly: true
+        - mountPath: "/opt/jboss/keycloak/standalone/data"
+          name: fppss-sso
+      volumes:
+      - name: fppss-sso
+        persistentVolumeClaim:
+          claimName: fppss-sso
+      - name: realm-config
+        configMap:
+          name: fppss-demo
+          items:
+          - key: fppss-realm.json
+            path: fppss-realm.json

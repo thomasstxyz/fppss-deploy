@@ -1,0 +1,73 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-datacollector
+  namespace: fppss-energy
+  labels:
+    app: fppss-energy
+spec:
+  selector:
+    matchLabels:
+      component: fppss-datacollector
+  template:
+    metadata:
+      labels:
+        component: fppss-datacollector
+        app.kubernetes.io/part-of: fppss-energy
+        app.kubernetes.io/name: fppss-datacollector
+        app.kubernetes.io/version: "latest"
+    spec:
+      initContainers:
+      - name: wait-for-rest-api
+        image: ghcr.io/patrickdappollonio/wait-for:v1.0.0
+        env:
+        - name: REST_API_URL
+          value: "fppss-rest-api:80"
+        command:
+        - /wait-for
+        args:
+        - --host="google.com:443"
+        - --host="$(REST_API_URL)"
+        - --timeout=1200s
+        - --verbose
+      containers:
+      - name: fppss-datacollector
+        image: ghcr.io/2110781006/fppss-datacollector:0.1.0 # {"$imagepolicy": "flux-system:fppss-datacollector"}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: FPPSS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: fppss_key
+        - name: FPPSS_REST_URL
+          value: "https://fppss-demo.thomasst.xyz"
+        - name: FPPSS_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-demo
+              key: fppss_interval
+        - name: FPPSS_KEYCLOAK_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-demo
+              key: fppss_keycloak_resource
+        - name: FPPSS_KEYCLOAK_USER
+          value: "fppss"
+        - name: FPPSS_KEYCLOAK_PASSWORD
+          value: "fppss"
+        - name: FPPSS_KEYCLOAK_TOKEN_URL
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-demo
+              key: fppss_keycloak_token_url
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+          requests:
+            memory: "64Mi"
+            cpu: "40m"

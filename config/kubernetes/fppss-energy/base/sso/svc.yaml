@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fppss-sso
+  namespace: fppss-energy
+  labels:
+    app: fppss-energy
+spec:
+  selector:
+    component: fppss-sso
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP

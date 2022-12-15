@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-frontend
+  namespace: fppss-energy
+  labels:
+    app: fppss-energy
+spec:
+  selector:
+    matchLabels:
+      component: fppss-frontend
+  template:
+    metadata:
+      labels:
+        component: fppss-frontend
+        app.kubernetes.io/part-of: fppss-energy
+        app.kubernetes.io/name: fppss-frontend
+        app.kubernetes.io/version: "latest"
+    spec:
+      initContainers:
+      - name: wait-for-rest-api
+        image: ghcr.io/patrickdappollonio/wait-for:v1.0.0
+        env:
+        - name: REST_API_URL
+          value: "fppss-rest-api:80"
+        command:
+        - /wait-for
+        args:
+        - --host="google.com:443"
+        - --host="$(REST_API_URL)"
+        - --timeout=1200s
+        - --verbose
+      containers:
+      - name: fppss-frontend
+        image: ghcr.io/2110781006/fppss-frontend:0.1.0 # {"$imagepolicy": "flux-system:fppss-frontend"}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: FPPSS_REST_URL
+          value: "https://fppss-demo.thomasst.xyz/api/v1/"
+        - name: FPPSS_KEYCLOAK_URL
+          value: "https://fppss-demo-sso.thomasst.xyz/auth/"
+        - name: FPPSS_KEYCLOAK_REALM
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-demo
+              key: fppss_keycloak_realm
+        - name: FPPSS_KEYCLOAK_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-demo
+              key: fppss_keycloak_resource
+        resources: {}

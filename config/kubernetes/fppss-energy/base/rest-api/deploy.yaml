@@ -1,0 +1,119 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-rest-api
+  namespace: fppss-energy
+  labels:
+    app: fppss-energy
+spec:
+  selector:
+    matchLabels:
+      component: fppss-rest-api
+  template:
+    metadata:
+      labels:
+        component: fppss-rest-api
+        app.kubernetes.io/part-of: fppss-energy
+        app.kubernetes.io/name: fppss-rest-api
+        app.kubernetes.io/version: "latest"
+    spec:
+      volumes:
+      - name: sql-files
+        emptyDir: {}
+      initContainers:
+      - name: copy-sql-files
+        image: ghcr.io/2110781006/fppss-rest-api:0.1.0 # {"$imagepolicy": "flux-system:fppss-rest-api"}
+        command: ['sh', '-c', 'cp -r /db-migrations/* /sql-files/']
+        volumeMounts:
+        - name: sql-files
+          mountPath: /sql-files
+      - name: wait-for-db
+        image: ghcr.io/patrickdappollonio/wait-for:v1.0.0
+        env:
+        - name: DB_HOST
+          value: "fppss-db:3306"
+        command:
+        - /wait-for
+        args:
+        - --host="google.com:443"
+        - --host="$(DB_HOST)"
+        - --timeout=1200s
+        - --verbose
+      - name: migrate-db
+        image: flyway/flyway
+        env:
+        - name: FPPSS_DB_URL
+          value: "jdbc:mysql://fppss-db:3306/fppss"
+        - name: FPPSS_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: fppss_db_user
+        - name: FPPSS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: fppss_db_password
+        command: ['sh', '-c', 'flyway -url=${FPPSS_DB_URL} -user=${FPPSS_DB_USER} -password=${FPPSS_DB_PASSWORD} -connectRetries=60 migrate']
+        volumeMounts:
+        - name: sql-files
+          mountPath: /flyway/sql
+      containers:
+      - name: fppss-rest-api
+        image: ghcr.io/2110781006/fppss-rest-api:0.1.0 # {"$imagepolicy": "flux-system:fppss-rest-api"}
+        imagePullPolicy: Always
+        ports:
+        - name: web
+          containerPort: 8080
+        env:
+        - name: FPPSS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: fppss_key
+        - name: FPPSS_DB_URL
+          value: "jdbc:mysql://fppss-db:3306/fppss"
+        - name: FPPSS_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: fppss_db_user
+        - name: FPPSS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fppss-energy-secret
+              key: fppss_db_password
+        - name: FPPSS_KEYCLOAK_AUTH_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-demo
+              key: fppss_keycloak_auth_server_url
+        - name: FPPSS_KEYCLOAK_REALM
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-demo
+              key: fppss_keycloak_realm
+        - name: FPPSS_KEYCLOAK_RESOURCE
+          valueFrom:
+            configMapKeyRef:
+              name: fppss-demo
+              key: fppss_keycloak_resource
+        resources: {}
+        # readinessProbe:
+        #   httpGet:
+        #     path: /api/v1/healthcheck
+        #     port: web
+        #   periodSeconds: 2
+        # livenessProbe:
+        #   httpGet:
+        #     path: /api/v1/healthcheck
+        #     port: web
+        #   periodSeconds: 10
+        #   failureThreshold: 1
+        # startupProbe:
+        #   httpGet:
+        #     path: /api/v1/healthcheck
+        #     port: web
+        #   failureThreshold: 30
+        #   periodSeconds: 10

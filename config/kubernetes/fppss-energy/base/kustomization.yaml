@@ -1,8 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: fppss-energy
+bases:
+  - datacollector
+  - db
+  - frontend
+  - rest-api
+  - sso
 
 resources:
-- fppss-energy-deploy.yaml
-- deployrestart-cronjob.yaml
+- deployrestart-cronjob.yaml # used as workaround for a bug with datacollector 
+
+namespace: fppss-energy

@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fppss-db
+  namespace: fppss-energy
+  labels:
+    app: fppss-energy
+spec:
+  selector:
+    matchLabels:
+      component: fppss-db
+  template:
+    metadata:
+      labels:
+        component: fppss-db
+        app.kubernetes.io/part-of: fppss-energy
+        app.kubernetes.io/name: fppss-db
+        app.kubernetes.io/version: "10.6"
+    spec:
+      volumes:
+        - name: fppss-db
+          persistentVolumeClaim:
+            claimName: fppss-db
+      containers:
+        - name: fppss-db
+          image: mariadb:10.6
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MARIADB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: fppss-energy-secret
+                  key: fppss_db_name
+            - name: MARIADB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: fppss-energy-secret
+                  key: fppss_db_user
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fppss-energy-secret
+                  key: fppss_db_password
+            - name: MARIADB_RANDOM_ROOT_PASSWORD
+              value: "yes"
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              name: fppss-db
+          resources: {}
