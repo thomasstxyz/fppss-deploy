@@ -160,13 +160,13 @@ flux bootstrap github \
 
 <!-- ## Install via Kustomize
 
-    kubectl apply -k config/kubernetes/base -->
+    kubectl apply -k config/kubernetes/fppss-energy/base -->
 
 ## Uninstall
 
 ### Kubernetes resources
 
-Delete the kubernetes manifests via Flux.
+Delete the kubernetes manifests with kubectl.
 
 ### AWS resources
 
