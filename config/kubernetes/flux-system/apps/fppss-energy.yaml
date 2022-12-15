@@ -84,5 +84,5 @@ spec:
     push:
       branch: main
   update:
-    path: ./config/kubernetes
+    path: ./config/kubernetes/fppss-energy
     strategy: Setters

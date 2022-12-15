@@ -1,0 +1,7 @@
+bases:
+- ../base
+
+resources:
+  - traefik-middlewares.yaml
+  - configmap-fppss-demo.yaml
+  - ingress.yaml

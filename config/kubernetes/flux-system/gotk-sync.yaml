@@ -6,7 +6,7 @@ metadata:
   name: flux-system
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 3m0s
   ref:
     branch: main
   secretRef:
@@ -33,7 +33,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./config/kubernetes/fppss-energy/base
+  path: ./config/kubernetes/fppss-energy/prod
   prune: true
   sourceRef:
     kind: GitRepository

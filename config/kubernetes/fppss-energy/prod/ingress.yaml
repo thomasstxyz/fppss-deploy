@@ -1,0 +1,59 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fppss-demo
+  namespace: fppss-energy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd,default-cors-allow-origin@kubernetescrd
+spec:
+  rules:
+  - host: fppss-demo.thomasst.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fppss-frontend
+            port:
+              number: 80
+      - path: /api/v1
+        pathType: Prefix
+        backend:
+          service:
+            name: fppss-rest-api
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - fppss-demo.thomasst.xyz
+    secretName: fppss-demo-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fppss-demo-sso
+  namespace: fppss-energy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: default-http-redirect@kubernetescrd,default-cors-allow-origin@kubernetescrd
+spec:
+  rules:
+  - host: fppss-demo-sso.thomasst.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fppss-sso
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - fppss-demo-sso.thomasst.xyz
+    secretName: fppss-demo-sso-tls
