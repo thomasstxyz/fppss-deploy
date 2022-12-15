@@ -3,7 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: fppss-db
 spec:
-  storageClassName: local-path
   accessModes:
     - ReadWriteOnce
   resources:
@@ -365,7 +364,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: fppss-sso
 spec:
-  storageClassName: local-path
   accessModes:
     - ReadWriteOnce
   resources:
