@@ -15,6 +15,7 @@ GitOps Repo of the "fppss-energy" application.
     - [Creating a minikube cluster for local development](#creating-a-minikube-cluster-for-local-development)
     - [Creating an EKS cluster for production use](#creating-an-eks-cluster-for-production-use)
       - [Prerequisites](#prerequisites)
+  - [Install Traefik](#install-traefik)
   - [Create Kubernetes namespace](#create-kubernetes-namespace)
   - [Create Kubernetes secrets](#create-kubernetes-secrets)
   - [Bootstrap Flux](#bootstrap-flux)
@@ -102,6 +103,10 @@ Install the AWS Load Balancer Controller using Helm V3 or later.
         --set serviceAccount.name=aws-load-balancer-controller 
 
 > Note: You might have to adapt the image repository url if you face errors.
+
+## Install Traefik
+
+https://doc.traefik.io/traefik/getting-started/install-traefik/
 
 ## Create Kubernetes namespace
 
