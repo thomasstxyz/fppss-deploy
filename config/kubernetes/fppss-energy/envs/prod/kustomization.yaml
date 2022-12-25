@@ -1,19 +1,16 @@
 bases:
 - ../../base
-
 resources:
-  - traefik-middlewares.yaml
-  - configmap-fppss-demo.yaml
-  - ingress.yaml
-  - flux-resources.yaml
-
+- traefik-middlewares.yaml
+- configmap-fppss-demo.yaml
+- ingress.yaml
+- flux-resources.yaml
 patchesStrategicMerge:
-  - pvc.yaml
-
+- pvc.yaml
 images:
 - name: ghcr.io/2110781006/fppss-datacollector
   newName: ghcr.io/2110781006/fppss-datacollector # {"$imagepolicy": "flux-system:fppss-datacollector:name"}
-  newTag: 0.1.0 # {"$imagepolicy": "flux-system:fppss-datacollector:tag"}
+  newTag: 0.1.1 # {"$imagepolicy": "flux-system:fppss-datacollector:tag"}
 - name: ghcr.io/2110781006/fppss-frontend
   newName: ghcr.io/2110781006/fppss-frontend # {"$imagepolicy": "flux-system:fppss-frontend:name"}
   newTag: 0.1.0 # {"$imagepolicy": "flux-system:fppss-frontend:tag"}
