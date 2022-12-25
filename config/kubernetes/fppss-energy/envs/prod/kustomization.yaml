@@ -16,4 +16,4 @@ images:
   newTag: 0.1.0 # {"$imagepolicy": "flux-system:fppss-frontend:tag"}
 - name: ghcr.io/2110781006/fppss-rest-api
   newName: ghcr.io/2110781006/fppss-rest-api # {"$imagepolicy": "flux-system:fppss-rest-api:name"}
-  newTag: 0.1.0 # {"$imagepolicy": "flux-system:fppss-rest-api:tag"}
+  newTag: 0.1.1 # {"$imagepolicy": "flux-system:fppss-rest-api:tag"}
