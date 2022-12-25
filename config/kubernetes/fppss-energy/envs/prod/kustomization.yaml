@@ -12,8 +12,11 @@ patchesStrategicMerge:
 
 images:
 - name: ghcr.io/2110781006/fppss-datacollector
-  newTag: 0.1.0
+  newName: ghcr.io/2110781006/fppss-datacollector # {"$imagepolicy": "flux-system:fppss-datacollector:name"}
+  newTag: 0.1.0 # {"$imagepolicy": "flux-system:fppss-datacollector:tag"}
 - name: ghcr.io/2110781006/fppss-frontend
-  newTag: 0.1.0
+  newName: ghcr.io/2110781006/fppss-frontend # {"$imagepolicy": "flux-system:fppss-frontend:name"}
+  newTag: 0.1.0 # {"$imagepolicy": "flux-system:fppss-frontend:tag"}
 - name: ghcr.io/2110781006/fppss-rest-api
-  newTag: 0.1.0
+  newName: ghcr.io/2110781006/fppss-rest-api # {"$imagepolicy": "flux-system:fppss-rest-api:name"}
+  newTag: 0.1.0 # {"$imagepolicy": "flux-system:fppss-rest-api:tag"}

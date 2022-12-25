@@ -33,7 +33,7 @@ spec:
         - --verbose
       containers:
       - name: fppss-frontend
-        image: ghcr.io/2110781006/fppss-frontend:0.1.0 # {"$imagepolicy": "flux-system:fppss-frontend"}
+        image: ghcr.io/2110781006/fppss-frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80

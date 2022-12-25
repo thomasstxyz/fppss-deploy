@@ -23,7 +23,7 @@ spec:
         emptyDir: {}
       initContainers:
       - name: copy-sql-files
-        image: ghcr.io/2110781006/fppss-rest-api:0.1.0 # {"$imagepolicy": "flux-system:fppss-rest-api"}
+        image: ghcr.io/2110781006/fppss-rest-api:latest
         command: ['sh', '-c', 'cp -r /db-migrations/* /sql-files/']
         volumeMounts:
         - name: sql-files
@@ -61,7 +61,7 @@ spec:
           mountPath: /flyway/sql
       containers:
       - name: fppss-rest-api
-        image: ghcr.io/2110781006/fppss-rest-api:0.1.0 # {"$imagepolicy": "flux-system:fppss-rest-api"}
+        image: ghcr.io/2110781006/fppss-rest-api:latest
         imagePullPolicy: Always
         ports:
         - name: web

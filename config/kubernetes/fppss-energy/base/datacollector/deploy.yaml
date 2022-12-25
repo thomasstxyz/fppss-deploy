@@ -33,7 +33,7 @@ spec:
         - --verbose
       containers:
       - name: fppss-datacollector
-        image: ghcr.io/2110781006/fppss-datacollector:0.1.0 # {"$imagepolicy": "flux-system:fppss-datacollector"}
+        image: ghcr.io/2110781006/fppss-datacollector:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
