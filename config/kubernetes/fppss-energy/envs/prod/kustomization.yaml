@@ -1,0 +1,19 @@
+bases:
+- ../base
+
+resources:
+  - traefik-middlewares.yaml
+  - configmap-fppss-demo.yaml
+  - ingress.yaml
+  - flux-resources.yaml
+
+patchesStrategicMerge:
+  - pvc.yaml
+
+images:
+- name: ghcr.io/2110781006/fppss-datacollector
+  newTag: 0.1.0
+- name: ghcr.io/2110781006/fppss-frontend
+  newTag: 0.1.0
+- name: ghcr.io/2110781006/fppss-rest-api
+  newTag: 0.1.0

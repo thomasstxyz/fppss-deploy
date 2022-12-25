@@ -18,7 +18,7 @@ GitOps Repo of the "fppss-energy" application.
   - [Install Traefik](#install-traefik)
   - [Create Kubernetes namespace](#create-kubernetes-namespace)
   - [Create Kubernetes secrets](#create-kubernetes-secrets)
-  - [Bootstrap Flux](#bootstrap-flux)
+  - [Install via Kustomize](#install-via-kustomize)
   - [Uninstall](#uninstall)
     - [Kubernetes resources](#kubernetes-resources)
     - [AWS resources](#aws-resources)
@@ -143,29 +143,9 @@ Save, the file and apply it via kubectl.
 You may delete the file now from your machine.
 The secret is now stored in Kubernetes secret store.
 
-## Bootstrap Flux
+## Install via Kustomize
 
-Install [Flux CLI](https://fluxcd.io/flux/installation/#install-the-flux-cli) first.
-
-Export your GitHub personal access token as an environment variable:
-
-    export GITHUB_TOKEN=<your-token>
-
-Then bootstrap flux via the cli.
-
-```
-flux bootstrap github \
-  --components-extra=image-reflector-controller,image-automation-controller \
-  --read-write-key \
-  --owner=thomasstxyz \
-  --repository=fppss-deploy \
-  --path=config/kubernetes \
-  --personal
-```
-
-<!-- ## Install via Kustomize
-
-    kubectl apply -k config/kubernetes/fppss-energy/base -->
+    kubectl apply -k config/kubernetes/fppss-energy/base
 
 ## Uninstall
 

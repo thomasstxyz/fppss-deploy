@@ -1,4 +1,30 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: fppss-deploy
+  namespace: flux-system
+spec:
+  interval: 3m0s
+  ref:
+    branch: main
+  secretRef:
+    name: fppss-deploy
+  url: ssh://git@github.com/thomasstxyz/fppss-deploy
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: fppss-energy
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: ./config/kubernetes/fppss-energy/envs/prod
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: fppss-deploy
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
@@ -65,13 +91,13 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
-  name: flux-system
+  name: fppss-deploy
   namespace: flux-system
 spec:
   interval: 1m0s
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: fppss-deploy
   git:
     checkout:
       ref:
@@ -84,5 +110,5 @@ spec:
     push:
       branch: main
   update:
-    path: ./config/kubernetes/fppss-energy
+    path: ./config/kubernetes/fppss-energy/envs/prod
     strategy: Setters
