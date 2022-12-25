@@ -21,7 +21,7 @@ metadata:
 spec:
   interval: 10m0s
   path: ./config/kubernetes/flux-system
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,7 +34,7 @@ metadata:
 spec:
   interval: 10m0s
   path: ./config/kubernetes/fppss-energy/prod
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
