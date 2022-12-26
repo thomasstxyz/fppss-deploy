@@ -18,7 +18,7 @@ metadata:
   name: fppss-energy
   namespace: flux-system
 spec:
-  interval: 5m0s
+  interval: 1m0s
   path: ./config/kubernetes/fppss-energy/envs/prod
   prune: false
   sourceRef:
@@ -32,7 +32,7 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/2110781006/fppss-rest-api
-  interval: 1m0s
+  interval: 5m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
@@ -41,7 +41,7 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/2110781006/fppss-datacollector
-  interval: 6m0s
+  interval: 5m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
@@ -50,7 +50,7 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/2110781006/fppss-frontend
-  interval: 6m0s
+  interval: 5m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
